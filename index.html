@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de Stage – Léandre Thébaud | SUEZ Digital Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --dark: #1e1e2f;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --gray: #6c757d;
+            --shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s ease;
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.7;
+        }
+
+        /* En-tête */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        nav button {
+            background: transparent;
+            border: none;
+            color: var(--white);
+            margin: 0 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        nav button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Introduction propre et épurée */
+        .intro-section {
+            padding: 8rem 2rem 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+
+        .intro-section h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .intro-section .details {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .intro-section .details p {
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .intro-section .content {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro-section .content p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Sections générales */
+        section {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 3rem 2rem;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Cartes pour les projets */
+        .card {
+            background-color: var(--white);
+            border-left: 4px solid var(--primary);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 1rem 2rem;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--white);
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 20px;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -20px;
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -20px;
+        }
+
+        .timeline-content {
+            padding: 1.5rem;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Grille des compétences */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .skill-card {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .skill-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Tableaux */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* Pied de page */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--dark);
+            color: var(--white);
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                padding-left: 3rem;
+            }
+            .timeline-item::before {
+                left: 0 !important;
+            }
+            .timeline::before {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- En-tête -->
+    <header>
+        <div class="logo">Léandre Thébaud – Rapport de Stage</div>
+        <nav>
+            <button onclick="scrollToSection('intro')">Introduction</button>
+            <button onclick="scrollToSection('entreprise')">Entreprise</button>
+            <button onclick="scrollToSection('missions')">Missions</button>
+            <button onclick="scrollToSection('competences')">Compétences</button>
+            <button onclick="scrollToSection('timeline')">Timeline</button>
+            <button onclick="scrollToSection('analyse')">Analyse</button>
+            <button onclick="scrollToSection('conclusion')">Conclusion</button>
+        </nav>
+    </header>
+
+    <!-- Introduction propre et épurée -->
+    <section id="intro" class="intro-section">
+        <h1>Rapport de Stage – SUEZ Digital Solutions</h1>
+        <div class="details">
+            <p><strong>Étudiant :</strong> Léandre Thébaud – NEOMA BS (Programme TEMA 1)</p>
+            <p><strong>Période :</strong> 15 juin 2025 → 15 août 2025</p>
+            <p><strong>Lieu :</strong> La Défense (Altiplano)</p>
+            <p><strong>Tuteurs :</strong> Olaf Kouamo & Quentin Fierling</p>
+        </div>
+        <div class="content">
+            <p>
+                Durant ce stage de deux mois, j’ai intégré l’équipe <span class="highlight">Data Science et Intelligence Artificielle</span> de SUEZ, au sein de la branche <span class="highlight">Digital Solutions</span>. Mon objectif était de comprendre les enjeux industriels liés à la gestion des déchets et des réseaux d’eau, et de contribuer à l’amélioration des modèles d’IA utilisés par l’entreprise.
+            </p>
+            <p>
+                La première phase a été consacrée à une <span class="highlight">formation intensive</span> sur les outils essentiels : Python (Pandas, NumPy), les concepts de machine learning, et les techniques de vision par ordinateur. Cette formation m’a permis de comprendre les discussions techniques avec les ingénieurs et de participer activement aux projets.
+            </p>
+            <p>
+                J’ai ensuite été impliqué dans trois projets concrets où j’ai :
+            </p>
+            <ul>
+                <li>Réalisé du <span class="highlight">data tagging</span> sur 24 000 images et vidéos pour alimenter les modèles d’IA.</li>
+                <li>Contribué à l’organisation et à la vérification des datasets sur Microsoft Azure.</li>
+                <li>Testé des modèles sur Hugging Face pour évaluer leurs performances.</li>
+                <li>Collaboré avec les ingénieurs pour améliorer les processus existants.</li>
+            </ul>
+            <p>
+                Cette expérience m’a permis de développer des compétences techniques et opérationnelles tout en comprenant les défis et les opportunités de la data science industrielle.
+            </p>
+        </div>
+    </section>
+
+    <!-- Présentation de l'entreprise -->
+    <section id="entreprise">
+        <h1>1. Présentation de SUEZ</h1>
+        <p>
+            SUEZ est un acteur majeur de la gestion de l’eau et des déchets, combinant <span class="highlight">innovation technologique et durabilité</span>. La branche <span class="highlight">Digital Solutions</span>, basée à La Défense, conçoit des outils basés sur l’IA pour :
+        </p>
+        <ul>
+            <li>Optimiser les processus industriels (ex : tri automatique des déchets).</li>
+            <li>Réduire les coûts opérationnels et prévenir les incidents.</li>
+            <li>Sécuriser les installations.</li>
+            <li>Exploiter les données pour produire des insights stratégiques.</li>
+        </ul>
+        <p>
+            Mon stage s’est déroulé au sein d’une équipe de 15 personnes (data scientists, ingénieurs, chefs de projet) travaillant sur des projets à fort impact opérationnel.
+        </p>
+    </section>
+
+    <!-- Missions réalisées -->
+    <section id="missions">
+        <h1>2. Missions et Projets</h1>
+
+        <!-- Projet Autodiag -->
+        <div class="card">
+            <h2><i class="fas fa-recycle"></i> Projet Autodiag – Reconnaissance des déchets</h2>
+            <h3><i class="fas fa-lightbulb"></i> Contexte</h3>
+            <p>
+                Ce projet vise à automatiser la reconnaissance des déchets pour améliorer l’efficacité du tri et réduire les coûts manuels. Il s’agit d’un projet stratégique pour SUEZ, avec un potentiel d’économie significatif.
+            </p>
+
+            <h3><i class="fas fa-tools"></i> Mes contributions</h3>
+            <p>
+                En tant que stagiaire, j’ai participé à ce projet en :
+            </p>
+            <ul>
+                <li>Annotant <span class="highlight">4 000 images</span> de déchets (plastique, métal, carton) selon des protocoles stricts.</li>
+                <li>Vérifiant la cohérence des annotations avec l’équipe technique.</li>
+                <li>Testant les premières versions du modèle pour identifier des axes d’amélioration.</li>
+                <li>Documentant les processus pour faciliter le travail des futurs stagiaires.</li>
+            </ul>
+
+            <h3><i class="fas fa-chart-line"></i> Apprentissages</h3>
+            <p>
+                Cette expérience m’a permis de comprendre :
+            </p>
+            <ul>
+                <li>L’importance cruciale de la qualité des données d’entraînement.</li>
+                <li>Les défis liés à la classification des déchets (variabilité des formes et matériaux).</li>
+                <li>Le processus complet de développement d’un modèle d’IA, du data tagging au déploiement.</li>
+            </ul>
+        </div>
+
+        <!-- Projet UVE -->
+        <div class="card">
+            <h2><i class="fas fa-fire"></i> Projet UVE – Prévention des incidents industriels</h2>
+            <h3><i class="fas fa-lightbulb"></i> Contexte</h3>
+            <p>
+                Les fours de valorisation énergétique des déchets peuvent être bloqués par des objets volumineux (matelas, barres métalliques), provoquant des arrêts coûteux. Ce projet vise à détecter ces objets avant qu’ils ne bloquent les installations.
+            </p>
+
+            <h3><i class="fas fa-tools"></i> Mes contributions</h3>
+            <p>
+                Dans le cadre de ce projet, j’ai :
+            </p>
+            <ul>
+                <li>Participé à l’annotation de <span class="highlight">12 000 images</span> d’objets critiques.</li>
+                <li>Appris à classifier les objets selon leur dangerosité potentielle.</li>
+                <li>Contribué à l’organisation des données sur Microsoft Azure.</li>
+            </ul>
+
+            <h3><i class="fas fa-chart-line"></i> Apprentissages</h3>
+            <p>
+                Cette mission m’a permis de :
+            </p>
+            <ul>
+                <li>Comprendre les enjeux de sécurité dans un environnement industriel.</li>
+                <li>Voir comment l’IA peut prévenir des incidents coûteux.</li>
+                <li>Prendre conscience de l’importance de la collaboration entre data scientists et opérateurs terrain.</li>
+            </ul>
+        </div>
+
+        <!-- Projet IA-Inspect -->
+        <div class="card">
+            <h2><i class="fas fa-water"></i> Projet IA-Inspect – Maintenance des réseaux d’eau</h2>
+            <h3><i class="fas fa-lightbulb"></i> Contexte</h3>
+            <p>
+                Ce projet utilise des vidéos 360° pour inspecter les réseaux d’eau souterrains, détecter les fuites et localiser précisément les regards et points d’accès.
+            </p>
+
+            <h3><i class="fas fa-tools"></i> Mes contributions</h3>
+            <p>
+                Mon rôle dans ce projet a consisté à :
+            </p>
+            <ul>
+                <li>Annoter <span class="highlight">8 000 images</span> issues des vidéos 360°.</li>
+                <li>Apprendre à identifier et géolocaliser les éléments critiques.</li>
+                <li>Participer à l’organisation des données pour l’entraînement des modèles.</li>
+            </ul>
+
+            <h3><i class="fas fa-chart-line"></i> Apprentissages</h3>
+            <p>
+                Cette expérience m’a permis de :
+            </p>
+            <ul>
+                <li>Découvrir les défis de l’analyse d’images 360°.</li>
+                <li>Comprendre l’importance de la géolocalisation dans les projets d’inspection.</li>
+                <li>Voir comment l’IA peut transformer la maintenance des infrastructures.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Compétences acquises -->
+    <section id="competences">
+        <h1>3. Compétences Développées</h1>
+
+        <div class="skills-grid">
+            <div class="skill-card">
+                <i class="fas fa-code"></i>
+                <h3>Python & Data Science</h3>
+                <p>
+                    Maîtrise des bibliothèques essentielles :
+                    <ul>
+                        <li>Pandas pour la manipulation de données.</li>
+                        <li>NumPy pour les calculs scientifiques.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-images"></i>
+                <h3>Data Tagging</h3>
+                <p>
+                    Annotation professionnelle de données :
+                    <ul>
+                        <li><span class="highlight">24 000 images</span> traitées.</li>
+                        <li>Utilisation d’outils comme CVAT.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-cloud"></i>
+                <h3>Microsoft Azure</h3>
+                <p>
+                    Gestion de données dans le cloud :
+                    <ul>
+                        <li>Stockage et organisation de datasets.</li>
+                        <li>Collaboration sur des projets partagés.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-robot"></i>
+                <h3>Vision par Ordinateur</h3>
+                <p>
+                    Compréhension des techniques :
+                    <ul>
+                        <li>Détection d’objets (YOLO, Faster R-CNN).</li>
+                        <li>Prétraitement des images.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-users"></i>
+                <h3>Travail d’Équipe</h3>
+                <p>
+                    Collaboration efficace :
+                    <ul>
+                        <li>Réunions quotidiennes avec les ingénieurs.</li>
+                        <li>Communication claire sur les avancées.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+
+        <h2>Bilan des Compétences</h2>
+        <table>
+            <tr>
+                <th>Compétence</th>
+                <th>Avant le Stage</th>
+                <th>Après le Stage</th>
+            </tr>
+            <tr>
+                <td>Programmation Python</td>
+                <td>Connaissances de base.</td>
+                <td>Maîtrise intermédiaire (Pandas, NumPy).</td>
+            </tr>
+            <tr>
+                <td>Compréhension de l’IA</td>
+                <td>Notions théoriques.</td>
+                <td>Expérience pratique (data tagging, tests de modèles).</td>
+            </tr>
+            <tr>
+                <td>Travail en équipe technique</td>
+                <td>Aucune expérience.</td>
+                <td>Collaboration quotidienne avec des ingénieurs.</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Timeline -->
+    <section id="timeline">
+        <h1>4. Chronologie du Stage</h1>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Semaine 1 – Intégration</h3>
+                    <p>
+                        <ul>
+                            <li>Découverte de l’équipe et des projets.</li>
+                            <li>Formation aux outils internes.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Semaine 2 – Premières missions</h3>
+                    <p>
+                        <ul>
+                            <li>Début du data tagging pour Autodiag.</li>
+                            <li>Apprentissage des protocoles d’annotation.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Semaine 4 – Projet UVE</h3>
+                    <p>
+                        <ul>
+                            <li>Annotation d’images pour la détection d’objets dangereux.</li>
+                            <li>Collaboration avec les opérateurs terrain.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Semaine 6 – Autonomie</h3>
+                    <p>
+                        <ul>
+                            <li>Prise en main complète des outils.</li>
+                            <li>Tests de modèles sur Hugging Face.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Semaine 8 – Fin du stage</h3>
+                    <p>
+                        <ul>
+                            <li>Finalisation des rapports.</li>
+                            <li>Bilan des compétences acquises.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analyse -->
+    <section id="analyse">
+        <h1>5. Analyse et Réflexions</h1>
+
+        <h2>Compréhension du rôle de la data</h2>
+        <p>
+            Ce stage m’a permis de comprendre l’importance cruciale de la <span class="highlight">qualité des données</span> dans les projets d’IA. Avant mon arrivée, je sous-estimais le travail de <span class="highlight">data tagging</span>, que je considérais comme une tâche secondaire. J’ai réalisé que :
+        </p>
+        <ul>
+            <li>Les annotations représentent <span class="highlight">80% du travail</span> pour 20% de résultats visibles.</li>
+            <li>Une erreur de 5% dans les annotations peut faire chuter la précision d’un modèle de 30%.</li>
+            <li>La qualité des données détermine directement la performance finale des modèles.</li>
+        </ul>
+
+        <h2>Transformation digitale chez SUEZ</h2>
+        <p>
+            L’entreprise mise sur trois axes principaux pour sa transformation digitale :
+        </p>
+        <ul>
+            <li>L’automatisation des processus industriels (ex : tri des déchets).</li>
+            <li>L’intégration de l’IA dans les métiers (ex : maintenance prédictive).</li>
+            <li>L’optimisation continue des coûts et des performances.</li>
+        </ul>
+    </section>
+
+    <!-- Conclusion -->
+    <section id="conclusion">
+        <h1>6. Conclusion</h1>
+
+        <h2>Bilan du stage</h2>
+        <p>
+            Ce stage chez SUEZ Digital Solutions a été une expérience formatrice qui m’a permis de :
+        </p>
+        <ul>
+            <li>Découvrir concrètement comment l’IA transforme les processus industriels.</li>
+            <li>Acquérir des compétences techniques en data science et en gestion de projets.</li>
+            <li>Comprendre l’importance de la qualité des données et de la collaboration entre équipes.</li>
+        </ul>
+
+        <p>
+            En tant que stagiaire, j’ai contribué à mon échelle à des projets significatifs, tout en prenant conscience des limites de mon impact (durée courte, expérience débutante). Cette expérience a renforcé mon intérêt pour les métiers à l’intersection de la data et du business.
+        </p>
+       
+        
+    </section>
+
+    <!-- Pied de page -->
+    <footer>
+        <p>
+            Rapport de stage réalisé pour <span class="highlight">NEOMA Business School – Programme TEMA 1</span> |
+            Étudiant : <span class="highlight">Léandre Thébaud</span> |
+            Année académique 2024-2025
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
